@@ -1,4 +1,6 @@
 using eCommerce.Data;
+using eCommerce.Repositories.Implementations;
+using eCommerce.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,9 @@ builder.Services.AddSwaggerGen();
 
 var Configuration = builder.Configuration.GetConnectionString("connection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration));
+
+builder.Services.AddScoped<ICouponRepo, CouponRepo>();
+builder.Services.AddScoped<ICustomerRepo, CustomerRepo>();
 
 var app = builder.Build();
 
